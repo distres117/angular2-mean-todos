@@ -3,13 +3,16 @@ import { BrowserModule }  from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import {NavbarComponent} from './components/navbar/navbar.component';
 import {TodosComponent} from './components/todos/todos.component';
+import {TodoService} from './services/todo.service';
+import {HttpModule} from '@angular/http';
 @NgModule({
   imports: [
-    BrowserModule
+    BrowserModule, HttpModule
   ],
   declarations: [
     AppComponent, NavbarComponent, TodosComponent
   ],
-  bootstrap: [ AppComponent ]
+  bootstrap: [ AppComponent ],
+  providers: [TodoService]
 })
 export class AppModule { }
