@@ -5,9 +5,10 @@ import {NavbarComponent} from './components/navbar/navbar.component';
 import {TodosComponent} from './components/todos/todos.component';
 import {TodoService} from './services/todo.service';
 import {HttpModule} from '@angular/http';
+import {FormsModule} from '@angular/forms';
 @NgModule({
   imports: [
-    BrowserModule, HttpModule
+    BrowserModule, HttpModule, FormsModule
   ],
   declarations: [
     AppComponent, NavbarComponent, TodosComponent

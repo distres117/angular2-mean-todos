@@ -30,16 +30,15 @@ router.post('/', function(req,res,next){
 
 router.put('/:id', function(req,res,next){
     var todo = req.body;
-    db.todos.update(
-        {_id: mongojs.ObjectId(req.params.id)},{
-            $set: {
-                text: todo.text,
-                isCompleted: todo.isCompleted === "true" ? true : false
+    db.todos.findAndModify({
+        query: {_id: mongojs.ObjectId(req.params.id)},
+        update: { $set: {
+            isCompleted: todo.isCompleted,
+            text:todo.text
             }
         },
-        {}, function(){
-            res.sendStatus(200);
-        });
+        new:true
+    }, getReponse.bind(res))
 });
 
 router.delete('/:id', function(req,res,next){

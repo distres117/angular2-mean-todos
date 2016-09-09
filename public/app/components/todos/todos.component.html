@@ -15,18 +15,18 @@
     <div *ngFor="let todo of getTodos(); let i = index">
         <div>
             <div class="col-md-1">
-                <input type="checkbox" [checked]="todo.isCompleted" (click)="todo.isCompleted = !todo.isCompleted">
+                <input type="checkbox" [checked]="todo.isCompleted" (click)="todo.isCompleted = !todo.isCompleted;updateTodo(todo)">
             </div>
             <div class="col-md-7">
-                <span [hidden]="editMode">{{todo.text}}</span>
-                <div [hidden]="!editMode">
-                    <input type="text" value="{{todo.text}}"/>
-                    <button class="btn btn-sm btn-danger" (click)="editMode=false">Cancel</button> 
+                <span [hidden]="editMode === i" [style.text-decoration]="todo.isCompleted ? 'line-through' : 'none'" >{{todo.text}}</span>
+                <div [hidden]="editMode !== i">
+                    <input type="text" [(ngModel)]="todo.text"/>
+                    <button class="btn btn-sm btn-sucess" (click)="updateTodo(todo)">Ok</button> 
                 </div>
             </div>
             <div class="col-md-4">
                 <button class="btn btn-danger btn-sm pull-right" (click)="removeTodo(i)" >Delete</button>&nbsp;
-                <button class="btn btn-default btn-sm pull-right" (click)="editMode=!editMode" [disabled]="todo.isCompleted">Edit</button>
+                <button class="btn btn-default btn-sm pull-right" (click)="editMode=i" [disabled]="todo.isCompleted">Edit</button>
             </div>
         </div>
         <br>

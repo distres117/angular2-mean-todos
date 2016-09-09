@@ -30,11 +30,10 @@ export class TodoService{
         return this.http.delete('/api/v1/todos/' + id)
             .subscribe(()=>this.todos.splice(idx,1));
     }
-    updateTodo(idx:number, todo:any){
-        let id = this.todos[idx]._id;
-        return this.http.put('/api/v1/todos/' + id, JSON.stringify(todo), this.options)
+    updateTodo(todo:any){
+        return this.http.put('/api/v1/todos/' + todo._id, JSON.stringify(todo), this.options)
             .map(res=>res.json())
-            .subscribe(todo=>this.todos[idx]=todo);
+            .subscribe((newTodo)=>{});
     }
 
 }
