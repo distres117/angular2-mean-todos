@@ -4,7 +4,7 @@ import {Todo} from '../models/todos';
 
 @Injectable()
 export class TodoService{
-    todos:any[];
+    todos:any[] = [];
     options: RequestOptions;
     constructor(public http:Http){
         this.options = new RequestOptions({
@@ -27,8 +27,14 @@ export class TodoService{
     }
     removeTodo(idx:number){
         let id = this.todos[idx]._id;
-        return this.http.delete('/api/v1/todos/' + id).toPromise()
-            .then(()=>this.todos.splice(idx,1));
+        return this.http.delete('/api/v1/todos/' + id)
+            .subscribe(()=>this.todos.splice(idx,1));
+    }
+    updateTodo(idx:number, todo:any){
+        let id = this.todos[idx]._id;
+        return this.http.put('/api/v1/todos/' + id, JSON.stringify(todo), this.options)
+            .map(res=>res.json())
+            .subscribe(todo=>this.todos[idx]=todo);
     }
 
 }

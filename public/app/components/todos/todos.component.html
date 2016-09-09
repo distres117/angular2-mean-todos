@@ -8,21 +8,25 @@
 
 </div>
 <div>
-    <div class="alart alert-info text-center" [hidden]="getTodos()">
+    <div class="alart alert-info text-center" [hidden]="getTodos().length">
         <h3>No todos</h3>
     </div>
 
     <div *ngFor="let todo of getTodos(); let i = index">
         <div>
             <div class="col-md-1">
-                <input type="checkbox">
+                <input type="checkbox" [checked]="todo.isCompleted" (click)="todo.isCompleted = !todo.isCompleted">
             </div>
             <div class="col-md-7">
-                {{todo.text}}
+                <span [hidden]="editMode">{{todo.text}}</span>
+                <div [hidden]="!editMode">
+                    <input type="text" value="{{todo.text}}"/>
+                    <button class="btn btn-sm btn-danger" (click)="editMode=false">Cancel</button> 
+                </div>
             </div>
             <div class="col-md-4">
                 <button class="btn btn-danger btn-sm pull-right" (click)="removeTodo(i)" >Delete</button>&nbsp;
-                <button class="btn btn-default btn-sm pull-right">Edit</button>
+                <button class="btn btn-default btn-sm pull-right" (click)="editMode=!editMode" [disabled]="todo.isCompleted">Edit</button>
             </div>
         </div>
         <br>

@@ -6,7 +6,7 @@ import {Todo} from '../../models/todos';
   templateUrl: './todos.component.html'
 })
 export class TodosComponent implements OnInit {
-
+  editMode:boolean = false;
   constructor(private todoService: TodoService){}
 
   ngOnInit(){
